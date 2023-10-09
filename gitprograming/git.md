@@ -40,3 +40,26 @@
     * [new branch]      learning -> learning
     branch 'learning' set up to track 'origin/learning'.
 ## 关联到远程库
+注意:
+
+
+* 每次push前要先进行git add 文件名 和  git commit -m "注释"。
+
+
++ 在第一次进行push时,我们加上-u参数,后期push时就不用再加-u参数。
+
+
++ 如果新建的远程库有文件(比如远程仓库里的LICENSE或者READ.ME文件),需要先 git pull ,但是会遇到
+        See git-pull(1) for details.
+        
+        git pull <remote> <branch>
+        
+        If you wish to set tracking information for this branch you can do so with:
+        
+        git branch --set-upstream-to=origin/<branch> master
+
+    解决方法：在git pull origin master后面跟上参数--allow-unrelated-histories
+
+        git pull origin master --allow-unrelated-histories
+远程仓库有更新的话需要先pull下来、然后再push.
+
