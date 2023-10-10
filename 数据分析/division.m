@@ -15,8 +15,9 @@ Y5=Y(5:5:num_total,:);
 
 Xc=[X1;X3;X5];
 Xt=[X2;X4];
-Yc=[Y1;Y3;Y5];
+Yc=[Y1;Y3;Y5];2
 Yt=[Y2;Y4];
+
 
 %%划分样本2：1
 X=NIR';
