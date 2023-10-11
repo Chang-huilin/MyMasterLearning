@@ -1,14 +1,18 @@
-%数据分析算法
-function snvSpectra = SNV(input_data)
-    % 计算每个样本的均值和标准差
-    meanSpectra = mean(input_data, 2);
-    stdSpectra = std(input_data, 0, 2);
 
-    % 计算SNV预处理后的光谱数据
-    snvSpectra = zeros(size(input_data));
-    for i = 1:size(input_data, 1)
-        snvSpectra(i, :) = (input_data(i, :) - meanSpectra(i)) ./ stdSpectra(i);
+
+function snvData = snv(X)
+    % X是样本*变量的矩阵
+    
+    % 按列计算均值和标准差
+    meanValues = mean(X);
+    stdValues = std(X, 0, 1);
+    
+    % SNV预处理
+    snvData = zeros(size(X));
+    for i = 1:size(X, 2)
+        snvData(:, i) = (X(:, i) - meanValues(i)) / stdValues(i);
     end
 end
 
-
+xsnv=snv(X);
+plot(1:3648,xsnv)  
