@@ -1,4 +1,4 @@
-%%光谱导入
+%光谱导入
 NIR=zeros(3648,20);
 for i=1:20
 t1=xlsread(strcat('C:\Users\79365\OneDrive\桌面\MASTER\数据\近红外300-1100\2023春茶试验4批\20230504春茶-热风杀青\1鲜叶\',num2str(i),'.xlsx'),'D1:D3648');
@@ -11,7 +11,7 @@ end
 
 ————————————————————————————————————————————————
 %%光谱颜色信息提取
-NIR_color3=zeros(96,6);
+%NIR_color3=zeros(96,6);
 for i=1:96
     disp(num2str(i))
     filename=strcat('D:\刘丽华1\硕\实验\翟琪\zq2\颜色长\',num2str(i),'.xlsx');
@@ -26,7 +26,7 @@ end
 
 ————————————————————————————————————————————————
 %%波段选取
-可以根据实际情况调整
+%可以根据实际情况调整
 X2=X(260:3425,:);
 xaxis2=xaxis(261:3446,:);
 
@@ -34,13 +34,13 @@ xaxis2=xaxis(261:3446,:);
 plot(xaxis,X);
 ————————————————————————————————————————————————
 %%光谱预处理
-预处理方法：SNV、卷积平滑SG、正交信号校正(orthogonal signal correction, OSC) 、净分析信号 (net signal analysis, NAS) 、基线校正 (baseline correction, BC) 、多元散射校正（MSC）
+%%预处理方法：SNV、卷积平滑SG、正交信号校正(orthogonal signal correction, OSC) 、净分析信号 (net signal analysis, NAS) 、基线校正 (baseline correction, BC) 、多元散射校正（MSC）
 
 %% SNV：  %X是样本*变量       
 xsnv=SNV(X);
 plot(1:3648,xsnv)  %输出结果图，3648是变量数            
 
-%% 一、二、三阶导：  在 \ D:\刘丽华1\硕\404\code\算法（CW)\算法（CW)\预处理\  目录下运行
+%% 一、二、三阶导：  在 \ D:\刘丽华1\硕\404\code\算法（CW）\算法（CW)\预处理\  目录下运行
 [dx1]=DERIV(X,1);      %X是样本*变量
 [dx2]=DERIV(X,2);
 [dx3]=DERIV(X,3);
@@ -52,8 +52,7 @@ plot(1:3648,cdata);  %输出结果图
 
 %MSC：%X是样本*变量
 [xmsc,me,xtmsc]=MSC(x,first,last,xt);  %不需要输入
-[xmsc,me]=MSC(X,1,3648);  %1为第一个变量 3648为最后一个变量
-plot(1:3648,xmsc);  %输出结果图
+[xmsc,me]=MSC(X,1,140);  %1为第一个维度 140为最后一个
 
 
 ————————————————————————————————————————————————
@@ -100,8 +99,8 @@ num_total=117;
 %%筛选变量
 ——SiPLS
 %% ouynag
-siModel=sipls(Xc,Yc,10,'mean',11,4,xaxis2,'syst123',5);
-siplstable(siModel);                     （看siModel-allint可以知道具体区间的波长范围）
+siModel=sipls(Xc,Yc,10,'mean',11,4,xaxis,'syst123',5);
+siplstable(siModel);                    % （看siModel-allint可以知道具体区间的波长范围）
 
 FinalModel=plsmodel(siModel,[ 1    4   10   11]  ,6,'mean','syst123',5);
 plspvsm(FinalModel,6,1);
@@ -110,7 +109,7 @@ predModel=plspredict(Xc,oneModel,6,Yc);
 plspvsm(predModel,6,1,1)
 predModel=plspredict(Xt,oneModel,6,Yt);
 plspvsm(predModel,6,1,1);
-
+% plot(Model.xaxislabels,Model.rawX)
 %% jianghao
 %% Si（初步划分区间）
 %jh_num=1;
