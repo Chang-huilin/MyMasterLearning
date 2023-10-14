@@ -52,10 +52,10 @@
 % plspvsm(predModel,num_total,1,1);      %预测集的结果 
 
 ACO  E:\荣艳娜硕士\算法代码\ACO+SA+GA+siPLS\ACO+SA+GA+siPLS\ACO-PLS
-Xcal=Xc
-Xtest=Xt
-Ycal=Yc
-Ytest=Yt
+Xcal=Xc;
+Xtest=Xt;
+Ycal=Yc;
+Ytest=Yt;
 
 Xtest=Xtest';
 Xmon_sim1=Xtest;
@@ -219,7 +219,7 @@ Yc=[Y1;Y3;Y5];
 Yt=[Y2;Y4];
 
 
- X=NIR';
+X=NIR';
 X=SNV(X); 
 
 [dx1]=DERIV(X,1);      %X是样本*变量
@@ -261,17 +261,7 @@ xlabel('Measured value (mol·mL^{-1}·L^{-1})');        %单位要根据实际做出更改
 ylabel('Predicted value (mol·mL^{-1}·L^{-1})');
 legend('R_c=0.9258 RMSEC=0.011','R_p=0.9030 RMSEP=0.014');
 
-plot(Yc,Yc2,'o')         %model , Yc2表示校正集的预测值
-hold on
-plot(Yt,Yt2,'*')          %premodel ， Yt2表示预测集的预测值
-hold on
-x=0.05:5:25;
-y=x;
-plot(x,y);
-hold on;
-xlabel('Measured value (%)');        %单位要根据实际做出更改
-ylabel('Predicted value (%)');
-legend('R_c=0.9328 RMSEC=1.250','R_p=0.8939 RMSEP=0.876');
+
 
 
 %筛选变量在原图像上
