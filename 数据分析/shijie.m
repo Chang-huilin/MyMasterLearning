@@ -113,7 +113,7 @@ plspvsm(predModel,num_total,1,1);      %预测集的结果
 
 %将筛选后的运行PLS主成分画图
 
-UVE 无信息变量消除E:\荣艳娜硕士\算法代码\matlab code\算法（SH）\数据处理相关算法\UVE-PLS
+UVE 无信息变量消除E:\荣艳娜硕士\算法代码\matlab code\算法(SH)\数据处理相关算法\UVE-PLS
  [mean_b,std_b,t_values,var_retain,RMSECVnew,Yhat,E]=plsuve(X,Y,20,144,2924,0.99);
 
  for i=1:47 %根据var_retain改
