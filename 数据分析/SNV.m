@@ -15,4 +15,13 @@ function snvData = snv(X)
 end
 
 xsnv=snv(X);
-plot(1:3648,xsnv)  
+plot(1:140,xsnv)
+
+
+num_total =140;   %主成分数
+plspvsm(Model,num_total,1);
+oneModel=plsmodel(Model,1,num_total,'mean','test',5);  
+predModel=plspredict(Xc,oneModel,num_total,Yc);
+plspvsm(predModel,num_total,1,1);    %把RMSEP改成RMSEC
+predModel=plspredict(Xt,oneModel,num_total,Yt);
+plspvsm(predModel,num_total1,1);      %预测集的结果  
