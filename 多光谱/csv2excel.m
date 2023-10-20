@@ -18,7 +18,7 @@ for i = 1:length(fileList)
     data = readmatrix(filePath);
     
     % 将读取的数据添加到矩阵数组中
-    dataMatrices{i} = data;
+    dataMatrices{i} = data; %#ok<SAGROW>
 end
 
 % 现在dataMatrices是一个包含所有CSV文件数据的矩阵数组
