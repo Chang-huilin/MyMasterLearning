@@ -1,15 +1,15 @@
-% % PLS
-% Model=ipls(Xc,Yc,10,'mean',1,[],'syst123',5); %10ÎªÖ÷³É·Ö£¬¿É¸ÄÎª15£¬1Îª½«Õû¸ö¹âÆ××÷ÎªÒ»¸öÇø¼ä£¬"mean"ÊÇ¹âÆ×Ô¤´¦Àí·½·¨£¬¡±syst123¡°ºÍ5 ±íÊ¾²ÉÓÃ½»»¥ÑéÖ¤µÄ·½·¨ºÍÃ¿´Î½»»¥ÑéÖ¤ËùÓÃÑù±¾µÄÊıÁ¿
-% iplsplot(Model,'intlabel');
-% plsrmse(Model,0);     %µÃ³öÖ÷³É·ÖÊı£¬0ÊÇ¸ö²ÎÊı
+% PLS
+Model=ipls(Xc,Yc,10,'mean',1,[],'syst123',5); %10ä¸ºä¸»æˆåˆ†ï¼Œå¯æ”¹ä¸º15ï¼Œ1ä¸ºå°†æ•´ä¸ªå…‰è°±ä½œä¸ºä¸€ä¸ªåŒºé—´ï¼Œ"mean"æ˜¯å…‰è°±é¢„å¤„ç†æ–¹æ³•ï¼Œâ€syst123â€œå’Œ5 è¡¨ç¤ºé‡‡ç”¨äº¤äº’éªŒè¯çš„æ–¹æ³•å’Œæ¯æ¬¡äº¤äº’éªŒè¯æ‰€ç”¨æ ·æœ¬çš„æ•°é‡
+iplsplot(Model,'intlabel');
+plsrmse(Model,0);     %å¾—å‡ºä¸»æˆåˆ†æ•°ï¼Œ0æ˜¯ä¸ªå‚æ•°
 
-% num_total =10;   %Ö÷³É·ÖÊı
-% plspvsm(Model,num_total,1);
-% oneModel=plsmodel(Model,1,num_total,'mean','test',5);  
-% predModel=plspredict(Xc,oneModel,num_total,Yc);
-% plspvsm(predModel,num_total,1,1);    %°ÑRMSEP¸Ä³ÉRMSEC
-% predModel=plspredict(Xt,oneModel,num_total,Yt);
-% plspvsm(predModel,num_total,1,1);      %Ô¤²â¼¯µÄ½á¹û  
+num_total =10;   %ä¸»æˆåˆ†æ•°
+plspvsm(Model,num_total,1);
+oneModel=plsmodel(Model,1,num_total,'mean','test',5);  
+predModel=plspredict(Xc,oneModel,num_total,Yc);
+plspvsm(predModel,num_total,1,1);    %æŠŠRMSEPæ”¹æˆRMSEC
+predModel=plspredict(Xt,oneModel,num_total,Yt);
+plspvsm(predModel,num_total,1,1);      %é¢„æµ‹é›†çš„ç»“æœ  
 
 
 
@@ -26,15 +26,15 @@
 % iplsplot(Model,'intlabel')
 % plsrmse(Model,0)
 
-% num_total =8;   %Ö÷³É·ÖÊı
-% plspvsm(Model,num_total,1);        %¸ü¸ÄÖ÷³É·ÖÊı
+% num_total =8;   %ä¸»æˆåˆ†æ•°
+% plspvsm(Model,num_total,1);        %æ›´æ”¹ä¸»æˆåˆ†æ•°
 % oneModel=plsmodel(Model,1,num_total,'mean','syst123',5);
 % predModel=plspredict(Xc3,oneModel,num_total,Yc);
 % plspvsm(predModel,num_total)
 % predModel=plspredict(Xt3,oneModel,num_total,Yt);
 % plspvsm(predModel,num_total)
 
-% Variables = xaxis(SelectedVariables,1);  %SelectedVariablesÑ¡³öÀ´µÄ±äÁ¿´ÓxaxisÀïÕª³öÀ´,²ÎÊı²»±ä    
+% Variables = xaxis(SelectedVariables,1);  %SelectedVariablesé€‰å‡ºæ¥çš„å˜é‡ä»xaxisé‡Œæ‘˜å‡ºæ¥,å‚æ•°ä¸å˜    
 
 
 % SiPLS
@@ -42,17 +42,8 @@
 % siModel=sipls(Xc,Yc,10,'mean',11,2,xaxis2,'syst123',5);
 % siplstable(siModel);
 
-% num_total =6;   %Ö÷³É·ÖÊı
-% FinalModel=plsmodel(siModel,[ 7    8] ,num_total,'mean','syst123',5);
-% plspvsm(FinalModel,num_total,1);
-% oneModel=plsmodel(siModel,[ 7    8] ,num_total,'mean','test',5);
-% predModel=plspredict(Xc,oneModel,num_total,Yc);
-% plspvsm(predModel,num_total,1,1);
-% predModel=plspredict(Xt,oneModel,num_total,Yt);
-% plspvsm(predModel,num_total,1,1);      %Ô¤²â¼¯µÄ½á¹û 
-
-ACO  E:\ÈÙÑŞÄÈË¶Ê¿\Ëã·¨´úÂë\ACO+SA+GA+siPLS\ACO+SA+GA+siPLS\ACO-PLS
-Xcal=Xc;
+% num_total =6;   %ä¸»æˆåˆ†æ•°
+% FinalXcal=Xc;
 Xtest=Xt;
 Ycal=Yc;
 Ytest=Yt;
@@ -65,15 +56,24 @@ Xcal_sim1=Xcal;
 save('Xcal_sim1.txt','Xcal_sim1','-ascii')
 ymon_sim1=Ytest;
 save('ymon_sim1.txt','ymon_sim1','-ascii')
-ycal_sim1=Ycal;
+ycal_sim1=Ycal;Model=plsmodel(siModel,[ 7    8] ,num_total,'mean','syst123',5);
+% plspvsm(FinalModel,num_total,1);
+% oneModel=plsmodel(siModel,[ 7    8] ,num_total,'mean','test',5);
+% predModel=plspredict(Xc,oneModel,num_total,Yc);
+% plspvsm(predModel,num_total,1,1);
+% predModel=plspredict(Xt,oneModel,num_total,Yt);
+% plspvsm(predModel,num_total,1,1);      %é¢„æµ‹é›†çš„ç»“æœ 
+
+%ACO  E:\è£è‰³å¨œç¡•å£«\ç®—æ³•ä»£ç \ACO+SA+GA+siPLS\ACO+SA+GA+siPLS\ACO-PLS
+
 save('ycal_sim1.txt','ycal_sim1','-ascii'); 
 
-    %ÔËĞĞaco_pls_main_code.mÎÄ¼ş.±äÁ¿2924Í¼
-    % ±£ÁôÉÏÃæµÚÒ»·ùÍ¼Æ¬£¨ºìÉ«ÇúÏßÈ¥³ı ²»Òª¹Ø±ÕÕâ¸öÍ¼Æ¬£©£¬É¾³ıÏÂÃæµÚ¶ş·ùÍ¼Æ¬¡£±à¼­-Í¼ĞÎÊôĞÔ-deleteÉ¾³ıÍ¼Æ¬
-    % ÔËĞĞaco_pls_selvÎÄ¼ş.²¨³¤400-1000Í¼
-    % ÔËĞĞaco_pls_calÎÄ¼ş.×îÖÕÍ¼
+    %è¿è¡Œaco_pls_main_code.mæ–‡ä»¶.å˜é‡2924å›¾
+    % ä¿ç•™ä¸Šé¢ç¬¬ä¸€å¹…å›¾ç‰‡ï¼ˆçº¢è‰²æ›²çº¿å»é™¤ ä¸è¦å…³é—­è¿™ä¸ªå›¾ç‰‡ï¼‰ï¼Œåˆ é™¤ä¸‹é¢ç¬¬äºŒå¹…å›¾ç‰‡ã€‚ç¼–è¾‘-å›¾å½¢å±æ€§-deleteåˆ é™¤å›¾ç‰‡
+    % è¿è¡Œaco_pls_selvæ–‡ä»¶.æ³¢é•¿400-1000å›¾
+    % è¿è¡Œaco_pls_calæ–‡ä»¶.æœ€ç»ˆå›¾
 
-%µÃµ½Ñ¡ÔñµÄ xaxis¼´xaxis_1%%xaxis_1¾ÍÊÇÉ¸Ñ¡±äÁ¿£¬ÓÃµ½±í¸ñÀï
+%å¾—åˆ°é€‰æ‹©çš„ xaxiså³xaxis_1%%xaxis_1å°±æ˜¯ç­›é€‰å˜é‡ï¼Œç”¨åˆ°è¡¨æ ¼é‡Œ
 [m,n]=size(histo);
 histo_1=zeros(m,1);
 xaxis_1=zeros(m,1);
@@ -89,7 +89,7 @@ end
 histo_1(all(histo_1==0,2),:)=[];
 xaxis_1(all(xaxis_1==0,2),:)=[]; 
 
-X_new=X(:,histo_1);   %½«Ñ¡Ôñ³öÀ´µÄ±äÁ¿ºÏ²¢³ÉĞÂµÄ¾ØÕó
+X_new=X(:,histo_1);   %å°†é€‰æ‹©å‡ºæ¥çš„å˜é‡åˆå¹¶æˆæ–°çš„çŸ©é˜µ
 X= X_new;
 
 Xcc=Xcal0';
@@ -97,33 +97,33 @@ Xtt=Xtest';
  Xc2=Xcc(:,histo_1);
  Xt2=Xtt(:,histo_1);
 
-Model=ipls(Xc2,Yc,15,'mean',1,[],'syst123',5); %10ÎªÖ÷³É·Ö£¬¿É¸ÄÎª15£¬1Îª½«Õû¸ö¹âÆ××÷ÎªÒ»¸öÇø¼ä£¬"mean"ÊÇ¹âÆ×Ô¤´¦Àí·½·¨£¬¡±syst123¡°ºÍ5 ±íÊ¾²ÉÓÃ½»»¥ÑéÖ¤µÄ·½·¨ºÍÃ¿´Î½»»¥ÑéÖ¤ËùÓÃÑù±¾µÄÊıÁ¿
+Model=ipls(Xc2,Yc,15,'mean',1,[],'syst123',5); %10ä¸ºä¸»æˆåˆ†ï¼Œå¯æ”¹ä¸º15ï¼Œ1ä¸ºå°†æ•´ä¸ªå…‰è°±ä½œä¸ºä¸€ä¸ªåŒºé—´ï¼Œ"mean"æ˜¯å…‰è°±é¢„å¤„ç†æ–¹æ³•ï¼Œâ€syst123â€œå’Œ5 è¡¨ç¤ºé‡‡ç”¨äº¤äº’éªŒè¯çš„æ–¹æ³•å’Œæ¯æ¬¡äº¤äº’éªŒè¯æ‰€ç”¨æ ·æœ¬çš„æ•°é‡
 iplsplot(Model,'intlabel');
-plsrmse(Model,0);     %µÃ³öÖ÷³É·ÖÊı£¬0ÊÇ¸ö²ÎÊı
+plsrmse(Model,0);     %å¾—å‡ºä¸»æˆåˆ†æ•°ï¼Œ0æ˜¯ä¸ªå‚æ•°
 
-num_total =5;   %Ö÷³É·ÖÊı
+num_total =5;   %ä¸»æˆåˆ†æ•°
 plspvsm(Model,num_total,1);
 oneModel=plsmodel(Model,1,num_total,'mean','test',5);  
 predModel=plspredict(Xc2,oneModel,num_total,Yc);
-plspvsm(predModel,num_total,1,1);    %°ÑRMSEP¸Ä³ÉRMSEC
+plspvsm(predModel,num_total,1,1);    %æŠŠRMSEPæ”¹æˆRMSEC
 predModel=plspredict(Xt2,oneModel,num_total,Yt);
-plspvsm(predModel,num_total,1,1);      %Ô¤²â¼¯µÄ½á¹û                                
+plspvsm(predModel,num_total,1,1);      %é¢„æµ‹é›†çš„ç»“æœ                                
  
 
 
-%½«É¸Ñ¡ºóµÄÔËĞĞPLSÖ÷³É·Ö»­Í¼
+%å°†ç­›é€‰åçš„è¿è¡ŒPLSä¸»æˆåˆ†ç”»å›¾
 
-UVE ÎŞĞÅÏ¢±äÁ¿Ïû³ıE:\ÈÙÑŞÄÈË¶Ê¿\Ëã·¨´úÂë\matlab code\Ëã·¨(SH)\Êı¾İ´¦ÀíÏà¹ØËã·¨\UVE-PLS
+%UVE æ— ä¿¡æ¯å˜é‡æ¶ˆé™¤E:\è£è‰³å¨œç¡•å£«\ç®—æ³•ä»£ç \matlab code\ç®—æ³•(SH)\æ•°æ®å¤„ç†ç›¸å…³ç®—æ³•\UVE-PLS
  [mean_b,std_b,t_values,var_retain,RMSECVnew,Yhat,E]=plsuve(X,Y,20,144,2924,0.99);
 
- for i=1:47 %¸ù¾İvar_retain¸Ä
-     X1(:,i) = X(:,(var_retain(1,i)));      %#ok<*SAGROW,*NASGU> %¼ÇµÃÖØĞÂÃüÃûX1¸Ä³ÉX
+ for i=1:47 %æ ¹æ®var_retainæ”¹
+     X1(:,i) = X(:,(var_retain(1,i)));      %è®°å¾—é‡æ–°å‘½åX1æ”¹æˆX
  end
 
- [Xc,Xt,Yc,Yt]=spxy(X,Y,96);        %#ok<*ASGLU> %66´ú±íÑµÁ·¼¯»®·ÖµÄÑù±¾ÊıÁ¿£¬ÖØĞÂ»®·ÖÔËĞĞPLS»­Í¼
+ [Xc,Xt,Yc,Yt]=spxy(X,Y,96);        %66ä»£è¡¨è®­ç»ƒé›†åˆ’åˆ†çš„æ ·æœ¬æ•°é‡ï¼Œé‡æ–°åˆ’åˆ†è¿è¡ŒPLSç”»å›¾
 
 
-% % % Boss E:\ÈÙÑŞÄÈË¶Ê¿\Ëã·¨´úÂë\matlab code\matlab code\code-boss
+% % % Boss E:\è£è‰³å¨œç¡•å£«\ç®—æ³•ä»£ç \matlab code\matlab code\code-boss
 % Xcal=Xc;
 % ycal=Yc;
 % Xtest=Xt;
@@ -142,13 +142,13 @@ UVE ÎŞĞÅÏ¢±äÁ¿Ïû³ıE:\ÈÙÑŞÄÈË¶Ê¿\Ëã·¨´úÂë\matlab code\Ëã·¨(SH)\Êı¾İ´¦ÀíÏà¹ØËã·¨\U
 
 % Xt3=Xt(:,r);
 % Xc3=Xc(:,r);
-% xaxis2=xaxis(r);    %É¸Ñ¡³öµÄ±äÁ¿
+% xaxis2=xaxis(r);    %ç­›é€‰å‡ºçš„å˜é‡
 
-% Model=ipls(Xc3,Yc,10,'mean',1,1:12,'syst123',5);    %23ÎªÉ¸Ñ¡³öÀ´µÄ±äÁ¿Êı£¬ĞŞ¸Ä
+% Model=ipls(Xc3,Yc,10,'mean',1,1:12,'syst123',5);    %23ä¸ºç­›é€‰å‡ºæ¥çš„å˜é‡æ•°ï¼Œä¿®æ”¹
 % iplsplot(Model,'intlabel')
 % plsrmse(Model,0)
 
-% num_total =5;    %ĞŞ¸ÄÖ÷³É·ÖÊı
+% num_total =5;    %ä¿®æ”¹ä¸»æˆåˆ†æ•°
 % plspvsm(Model,num_total,1)
 % oneModel=plsmodel(Model,1,num_total,'mean','syst123',5);
 % predModel=plspredict(Xc3,oneModel,num_total,Yc);
@@ -156,14 +156,14 @@ UVE ÎŞĞÅÏ¢±äÁ¿Ïû³ıE:\ÈÙÑŞÄÈË¶Ê¿\Ëã·¨´úÂë\matlab code\Ëã·¨(SH)\Êı¾İ´¦ÀíÏà¹ØËã·¨\U
 % predModel=plspredict(Xt3,oneModel,num_total,Yt);
 % plspvsm(predModel,num_total)
 
-%Ô¤´¦Àí
-%% SNV£º  %XÊÇÑù±¾*±äÁ¿       
+%é¢„å¤„ç†
+%% SNVï¼š  %Xæ˜¯æ ·æœ¬*å˜é‡       
 X=SNV(X); 
 [Xc,Xt,Yc,Yt]=spxy(X,Y,86);
-plot(1:3648,X)  %Êä³ö½á¹ûÍ¼£¬3648ÊÇ±äÁ¿Êı            
+plot(1:3648,X)  %è¾“å‡ºç»“æœå›¾ï¼Œ3648æ˜¯å˜é‡æ•°            
 
-%% Ò»¡¢¶ş¡¢Èı½×µ¼£º  ÔÚ \ D:\ÁõÀö»ª1\Ë¶\404\code\Ëã·¨£¨CW)\Ëã·¨£¨CW)\Ô¤´¦Àí\  Ä¿Â¼ÏÂÔËĞĞ
-[dx1]=DERIV(X,1);      %XÊÇÑù±¾*±äÁ¿
+%% ä¸€ã€äºŒã€ä¸‰é˜¶å¯¼ï¼š  åœ¨ \ D:\åˆ˜ä¸½å1\ç¡•\404\code\ç®—æ³•ï¼ˆCW)\ç®—æ³•ï¼ˆCW)\é¢„å¤„ç†\  ç›®å½•ä¸‹è¿è¡Œ
+[dx1]=DERIV(X,1);      %Xæ˜¯æ ·æœ¬*å˜é‡
 X1=X;
 X=dx1;
 [Xc,Xt,Yc,Yt]=spxy(X,Y,96);
@@ -174,22 +174,22 @@ X=dx2;
 [Xc,Xt,Yc,Yt]=spxy(X,Y,86);
 
 [dx3]=DERIV(X,3);
-plot(1:2808,dx1);     % Êä³ö½á¹ûÍ¼
+plot(1:2808,dx1);     % è¾“å‡ºç»“æœå›¾
 
-%%center¾ùÖµÖĞĞÄ»¯£º%XÊÇÑù±¾*±äÁ¿
-[cdata,me,ctest]=center(X',1,X');   %Èç¹û±äÁ¿*Ñù±¾Êı ĞèÒª×ªÖÃ
-plot(1:3648,cdata);  %Êä³ö½á¹ûÍ¼
+%%centerå‡å€¼ä¸­å¿ƒåŒ–ï¼š%Xæ˜¯æ ·æœ¬*å˜é‡
+[cdata,me,ctest]=center(X',1,X');   %#ok<*ASGLU> %å¦‚æœå˜é‡*æ ·æœ¬æ•° éœ€è¦è½¬ç½®
+plot(1:3648,cdata);  %è¾“å‡ºç»“æœå›¾
 
-%MSC£º%XÊÇÑù±¾*±äÁ¿
-[xmsc,me,xtmsc]=MSC(x,first,last,xt);  %²»ĞèÒªÊäÈë
-[xmsc,me]=MSC(X,1,3648);  %1ÎªµÚÒ»¸ö±äÁ¿ 3648Îª×îºóÒ»¸ö±äÁ¿
-plot(1:3648,xmsc);  %Êä³ö½á¹ûÍ¼
+%MSCï¼š%Xæ˜¯æ ·æœ¬*å˜é‡
+[xmsc,me,xtmsc]=MSC(x,first,last,xt);  %ä¸éœ€è¦è¾“å…¥
+[xmsc,me]=MSC(X,1,3648);  %1ä¸ºç¬¬ä¸€ä¸ªå˜é‡ 3648ä¸ºæœ€åä¸€ä¸ªå˜é‡
+plot(1:3648,xmsc);  %è¾“å‡ºç»“æœå›¾
 
 
-%»®·ÖÑù±¾ÈıÖÖ
+%åˆ’åˆ†æ ·æœ¬ä¸‰ç§
  ZX=SNV(X); 
 
-[dx1]=DERIV(X,1);      %XÊÇÑù±¾*±äÁ¿
+[dx1]=DERIV(X,1);      %Xæ˜¯æ ·æœ¬*å˜é‡
 X1=X;
 X=dx1;
 
@@ -197,11 +197,11 @@ X=dx1;
 X1=X;
 X=dx2;
 
-ZX=X;
-[z1, z2]=sort(Y);       %¶ÔY½øĞĞÅÅĞò£¬°´ÕÕ3£º2»®·ÖÑµÁ·¼¯ºÍÔ¤²â¼¯,z1ÎªÅÅĞòÖ®ºóµÄÀí»¯Öµ½á¹û£¬z2ÎªĞÂµÄÅÅÁĞË³Ğò
+ZX=X
+[z1 z2]=sort(Y);       %å¯¹Yè¿›è¡Œæ’åºï¼ŒæŒ‰ç…§3ï¼š2åˆ’åˆ†è®­ç»ƒé›†å’Œé¢„æµ‹é›†,z1ä¸ºæ’åºä¹‹åçš„ç†åŒ–å€¼ç»“æœï¼Œz2ä¸ºæ–°çš„æ’åˆ—é¡ºåº
 ZX2=ZX(z2,:);
 num_total=72;
-X1=ZX2(1:5:num_total,:);   %ÑµÁ·ÓëÔ¤²âÒÔ3:2·Ö(ÖĞ¼äÎª5£¬Èô1:1·ÖÔòÖĞ¼äÎª2£©Ã¿5¸ö·ÖÎªÒ»×é£¬Ã¿×éÖĞ 1¡¢3¡¢5 ÎªÑµÁ·£»2¡¢4ÎªÔ¤²â
+X1=ZX2(1:5:num_total,:);   %è®­ç»ƒä¸é¢„æµ‹ä»¥3:2åˆ†(ä¸­é—´ä¸º5ï¼Œè‹¥1:1åˆ†åˆ™ä¸­é—´ä¸º2ï¼‰æ¯5ä¸ªåˆ†ä¸ºä¸€ç»„ï¼Œæ¯ç»„ä¸­ 1ã€3ã€5 ä¸ºè®­ç»ƒï¼›2ã€4ä¸ºé¢„æµ‹
 X2=ZX2(2:5:num_total,:);
 X3=ZX2(3:5:num_total,:);
 X4=ZX2(4:5:num_total,:);
@@ -214,7 +214,7 @@ Y4=z1(4:5:num_total,:);
 Y5=z1(5:5:num_total,:);
 
 Xc=[X1;X3;X5];
-Xt=[X2;X4];
+Xt=[X2;X4]; %#ok<*NASGU>
 Yc=[Y1;Y3;Y5];
 Yt=[Y2;Y4];
 
@@ -222,7 +222,7 @@ Yt=[Y2;Y4];
 X=NIR';
 X=SNV(X); 
 
-[dx1]=DERIV(X,1);      %XÊÇÑù±¾*±äÁ¿
+[dx1]=DERIV(X,1);      %Xæ˜¯æ ·æœ¬*å˜é‡
 X1=X;
 X=dx1;
 
@@ -230,41 +230,41 @@ X=dx1;
 X1=X;
 X=dx2;
 
-[z1, z2]=sort(Y);       %¶ÔY½øĞĞÅÅĞò£¬°´ÕÕ2£º1»®·ÖÑµÁ·¼¯ºÍÔ¤²â¼¯
+[z1 z2]=sort(Y);       %å¯¹Yè¿›è¡Œæ’åºï¼ŒæŒ‰ç…§2ï¼š1åˆ’åˆ†è®­ç»ƒé›†å’Œé¢„æµ‹é›†
 X=X(z2,:);
 num_total=150;  
  t1=X(1:3:num_total,:);
  t2=X(2:3:num_total,:);
  t3=X(3:3:num_total,:);
  Xc=[t1;t3];
- Xt=t2;
+ Xt=[t2];
  t1=z1(1:3:num_total,:);
  t2=z1(2:3:num_total,:);
  t3=z1(3:3:num_total,:);
  Yc=[t1;t3];
- Yt=t2;
+ Yt=[t2];
 
 
-%%SPXY»®·Ö   D:\ÁõÀö»ª1\Ë¶\404\code\matlab code\matlab code
-[Xc,Xt,Yc,Yt]=spxy(X,Y,48);        %66´ú±íÑµÁ·¼¯»®·ÖµÄÑù±¾ÊıÁ¿                           
+%%SPXYåˆ’åˆ†   D:\åˆ˜ä¸½å1\ç¡•\404\code\matlab code\matlab code
+[Xc,Xt,Yc,Yt]=spxy(X,Y,48);        %66ä»£è¡¨è®­ç»ƒé›†åˆ’åˆ†çš„æ ·æœ¬æ•°é‡                           
 
-%%»­Í¼Óï¾ä£¬½«Ğ£Õı¼¯ºÍÔ¤²â¼¯·ÅÔÚÒ»ÕÅÍ¼Àï
-plot(Yc,Yc2,'o')         %model , Yc2±íÊ¾Ğ£Õı¼¯µÄÔ¤²âÖµ
+%%ç”»å›¾è¯­å¥ï¼Œå°†æ ¡æ­£é›†å’Œé¢„æµ‹é›†æ”¾åœ¨ä¸€å¼ å›¾é‡Œ
+plot(Yc,Yc2,'o')         %model , Yc2è¡¨ç¤ºæ ¡æ­£é›†çš„é¢„æµ‹å€¼
 hold on
-plot(Yt,Yt2,'*')          %premodel £¬ Yt2±íÊ¾Ô¤²â¼¯µÄÔ¤²âÖµ
+plot(Yt,Yt2,'*')          %premodel ï¼Œ Yt2è¡¨ç¤ºé¢„æµ‹é›†çš„é¢„æµ‹å€¼
 hold on
 x=0:0.05:0.2;
 y=x;
 plot(x,y);
 hold on;
-xlabel('Measured value (mol¡¤mL^{-1}¡¤L^{-1})');        %µ¥Î»Òª¸ù¾İÊµ¼Ê×ö³ö¸ü¸Ä
-ylabel('Predicted value (mol¡¤mL^{-1}¡¤L^{-1})');
+xlabel('Measured value (molÂ·mL^{-1}Â·L^{-1})');        %å•ä½è¦æ ¹æ®å®é™…åšå‡ºæ›´æ”¹
+ylabel('Predicted value (molÂ·mL^{-1}Â·L^{-1})');
 legend('R_c=0.9258 RMSEC=0.011','R_p=0.9030 RMSEP=0.014');
 
 
 
 
-%É¸Ñ¡±äÁ¿ÔÚÔ­Í¼ÏñÉÏ
+%ç­›é€‰å˜é‡åœ¨åŸå›¾åƒä¸Š
 X0=mean(X);
 plot(xaxis,X0);
 hold on;
@@ -291,14 +291,14 @@ plot(xaxis,X09);
 hold on;
 plot(xaxis(third),X09(1,third),'ro');
 
-%É¸Ñ¡±äÁ¿¶ÔÓ¦²¨³¤
+%ç­›é€‰å˜é‡å¯¹åº”æ³¢é•¿
 xaxisCha = xaxis(cha,:);
 xaxisFen = xaxis(fen,:);
 xaxisTang = xaxis(tang,:);
 xaxisKa = xaxis(ka,:);
 xaxisYou = xaxis(you,:);
 
-%¶ÔÓ¦YÖá
+%å¯¹åº”Yè½´
 X0=mean(X);
 plot(xaxis,X0);
 %%plot(xaxis,[X1;x2])
@@ -315,15 +315,15 @@ xlabel('Wavelength (nm)');
 
 
 
-%Y×ø±ê123456
+%Yåæ ‡123456
 for i=1:5
     Y(20*(i-1)+1:20*i,1) = i;
 end
 
-%É¸Ñ¡³öÀ´µÄ±äÁ¿Ëù¶ÔÓ¦µÄ²¨³¤
+%ç­›é€‰å‡ºæ¥çš„å˜é‡æ‰€å¯¹åº”çš„æ³¢é•¿
 
 
-%%%%SiÉ¸Ñ¡µÄÇø¼ä±äÁ¿ÌáÈ¡
+%%%%Siç­›é€‰çš„åŒºé—´å˜é‡æå–
 intervals = oneModel.selected_intervals;
 allint = oneModel.allint;
 [m,n]=size(intervals);
@@ -336,15 +336,15 @@ for j=1:n
         end
     end
 end
-%ÌáÈ¡¶ÔÓ¦µÄ²¨³¤Êı
+%æå–å¯¹åº”çš„æ³¢é•¿æ•°
 xaxisC = xaxis; 
 rep1 = X; 
 for i=1:n
     if i==1
         data1=rep1(:,allints(i,1):allints(i,2));
         xaxis1 = xaxisC(allints(i,1):allints(i,2));
-        xaxis = xaxis1;
-        X=data1;
+        xaxis = [xaxis1];
+        X=[data1];
     elseif i==2
         data2=rep1(:,allints(i,1):allints(i,2));
         xaxis2 = xaxisC(allints(i,1):allints(i,2));
@@ -368,7 +368,7 @@ rep2 = Xc;
 for i=1:n
     if i==1
         data1=rep2(:,allints(i,1):allints(i,2));
-        Xc=data1;
+        Xc=[data1];
     elseif i==2
         data2=rep2(:,allints(i,1):allints(i,2));
         Xc=[data1,data2];
@@ -386,7 +386,7 @@ rep3 = Xt;
 for i=1:n
     if i==1
         data1=rep3(:,allints(i,1):allints(i,2));
-        Xt=data1;
+        Xt=[data1];
     elseif i==2
         data2=rep3(:,allints(i,1):allints(i,2));
         Xt=[data1,data2];
@@ -399,7 +399,7 @@ for i=1:n
     end
 end
 
-%%%%¶ÔÓÚsiÇø¼äÉ¸Ñ¡ºóÓÖ½øÒ»²½±äÁ¿É¸Ñ¡»­µÄ±äÁ¿Í¼
+%%%%å¯¹äºsiåŒºé—´ç­›é€‰ååˆè¿›ä¸€æ­¥å˜é‡ç­›é€‰ç”»çš„å˜é‡å›¾
 X0=mean(X);
 [m,n]=size(X0);
 [m1,n1]=size(xaxis1);
