@@ -1,15 +1,15 @@
-% % PLS
-% Model=ipls(Xc,Yc,10,'mean',1,[],'syst123',5); %10为主成分，可改为15，1为将整个光谱作为一个区间，"mean"是光谱预处理方法，”syst123“和5 表示采用交互验证的方法和每次交互验证所用样本的数量
-% iplsplot(Model,'intlabel');
-% plsrmse(Model,0);     %得出主成分数，0是个参数
+% PLS
+Model=ipls(Xc,Yc,10,'mean',1,[],'syst123',5); %10为主成分，可改为15，1为将整个光谱作为一个区间，"mean"是光谱预处理方法，”syst123“和5 表示采用交互验证的方法和每次交互验证所用样本的数量
+iplsplot(Model,'intlabel');
+plsrmse(Model,0);     %得出主成分数，0是个参数
 
-% num_total =10;   %主成分数
-% plspvsm(Model,num_total,1);
-% oneModel=plsmodel(Model,1,num_total,'mean','test',5);  
-% predModel=plspredict(Xc,oneModel,num_total,Yc);
-% plspvsm(predModel,num_total,1,1);    %把RMSEP改成RMSEC
-% predModel=plspredict(Xt,oneModel,num_total,Yt);
-% plspvsm(predModel,num_total,1,1);      %预测集的结果  
+num_total =6;   %主成分数
+plspvsm(Model,num_total,1);
+oneModel=plsmodel(Model,1,num_total,'mean','test',5);  
+predModel=plspredict(Xc,oneModel,num_total,Yc);
+plspvsm(predModel,num_total,1,1);    %把RMSEP改成RMSEC
+predModel=plspredict(Xt,oneModel,num_total,Yt);
+plspvsm(predModel,num_total,1,1);      %预测集的结果  
 
 
 
@@ -43,16 +43,7 @@
 % siplstable(siModel);
 
 % num_total =6;   %主成分数
-% FinalModel=plsmodel(siModel,[ 7    8] ,num_total,'mean','syst123',5);
-% plspvsm(FinalModel,num_total,1);
-% oneModel=plsmodel(siModel,[ 7    8] ,num_total,'mean','test',5);
-% predModel=plspredict(Xc,oneModel,num_total,Yc);
-% plspvsm(predModel,num_total,1,1);
-% predModel=plspredict(Xt,oneModel,num_total,Yt);
-% plspvsm(predModel,num_total,1,1);      %预测集的结果 
-
-ACO  E:\荣艳娜硕士\算法代码\ACO+SA+GA+siPLS\ACO+SA+GA+siPLS\ACO-PLS
-Xcal=Xc;
+% FinalXcal=Xc;
 Xtest=Xt;
 Ycal=Yc;
 Ytest=Yt;
@@ -65,7 +56,16 @@ Xcal_sim1=Xcal;
 save('Xcal_sim1.txt','Xcal_sim1','-ascii')
 ymon_sim1=Ytest;
 save('ymon_sim1.txt','ymon_sim1','-ascii')
-ycal_sim1=Ycal;
+ycal_sim1=Ycal;Model=plsmodel(siModel,[ 7    8] ,num_total,'mean','syst123',5);
+% plspvsm(FinalModel,num_total,1);
+% oneModel=plsmodel(siModel,[ 7    8] ,num_total,'mean','test',5);
+% predModel=plspredict(Xc,oneModel,num_total,Yc);
+% plspvsm(predModel,num_total,1,1);
+% predModel=plspredict(Xt,oneModel,num_total,Yt);
+% plspvsm(predModel,num_total,1,1);      %预测集的结果 
+
+%ACO  E:\荣艳娜硕士\算法代码\ACO+SA+GA+siPLS\ACO+SA+GA+siPLS\ACO-PLS
+
 save('ycal_sim1.txt','ycal_sim1','-ascii'); 
 
     %运行aco_pls_main_code.m文件.变量2924图
@@ -113,14 +113,14 @@ plspvsm(predModel,num_total,1,1);      %预测集的结果
 
 %将筛选后的运行PLS主成分画图
 
-UVE 无信息变量消除E:\荣艳娜硕士\算法代码\matlab code\算法(SH)\数据处理相关算法\UVE-PLS
+%UVE 无信息变量消除E:\荣艳娜硕士\算法代码\matlab code\算法(SH)\数据处理相关算法\UVE-PLS
  [mean_b,std_b,t_values,var_retain,RMSECVnew,Yhat,E]=plsuve(X,Y,20,144,2924,0.99);
 
  for i=1:47 %根据var_retain改
-     X1(:,i) = X(:,(var_retain(1,i)));      %#ok<*SAGROW,*NASGU> %记得重新命名X1改成X
+     X1(:,i) = X(:,(var_retain(1,i)));      %#ok<SAGROW> %记得重新命名X1改成X
  end
 
- [Xc,Xt,Yc,Yt]=spxy(X,Y,96);        %#ok<*ASGLU> %66代表训练集划分的样本数量，重新划分运行PLS画图
+ [Xc,Xt,Yc,Yt]=spxy(X,Y,96);        %66代表训练集划分的样本数量，重新划分运行PLS画图
 
 
 % % % Boss E:\荣艳娜硕士\算法代码\matlab code\matlab code\code-boss
@@ -177,7 +177,7 @@ X=dx2;
 plot(1:2808,dx1);     % 输出结果图
 
 %%center均值中心化：%X是样本*变量
-[cdata,me,ctest]=center(X',1,X');   %如果变量*样本数 需要转置
+[cdata,me,ctest]=center(X',1,X');   %#ok<*ASGLU> %如果变量*样本数 需要转置
 plot(1:3648,cdata);  %输出结果图
 
 %MSC：%X是样本*变量
@@ -214,7 +214,7 @@ Y4=z1(4:5:num_total,:);
 Y5=z1(5:5:num_total,:);
 
 Xc=[X1;X3;X5];
-Xt=[X2;X4];
+Xt=[X2;X4]; %#ok<*NASGU>
 Yc=[Y1;Y3;Y5];
 Yt=[Y2;Y4];
 

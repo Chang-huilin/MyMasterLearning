@@ -7,7 +7,7 @@
 plot(1:3648,dx1);     % 输出结果图
 
 %%center均值中心化：%X是样本*变量
-[cdata,me,ctest]=center(X',1,X');   %如果变量*样本数 需要转置
+[cdata,me,ctest]=center(X',1,X');   %#ok<*ASGLU> %如果变量*样本数 需要转置
 plot(1:3648,cdata);  %输出结果图
 
 %MSC：%X是样本*变量
