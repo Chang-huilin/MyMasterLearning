@@ -6,9 +6,9 @@
 
     * main
 
-## 新建分支learning
+## 新建分支 Multispectral
 
-    PS C:\github\MyMasterLearning> git checkout -b learning
+    PS C:\github\MyMasterLearning> git checkout -b Multispectral
 
     Switched to a new branch 'learning'
 
@@ -27,7 +27,7 @@
 ## 向分支添加改动及改动说明learing
 
     PS C:\github\MyMasterLearning> git add .
-    PS C:\github\MyMasterLearning> git commit -m'learing'
+    PS C:\github\MyMasterLearning> git commit -m'Multispectral'
     [learning 7322069] learing
     1 file changed, 2 insertions(+), 2 deletions(-)
 
