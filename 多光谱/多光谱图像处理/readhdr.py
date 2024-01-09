@@ -4,7 +4,7 @@ import numpy as np
 import spectral.io.envi as envi
 
 # 设置高光谱数据文件夹路径
-data_folder = r'D:\茶叶干燥过程\茶叶多光谱图像\热风第二批140个样+水分\1鲜叶_processed'
+data_folder = r'D:\茶叶干燥过程\茶叶多光谱图像\热风第二批140个样+水分\7碾茶_processed'
 
 # 获取数据的维度
 bands = 25  # 假设处理前24个波段
