@@ -2,7 +2,7 @@ import os
 from PIL import Image
 
 # 设置主文件夹路径
-main_folder = r'D:\茶叶干燥过程\茶叶多光谱图像\热风第二批140个样+水分\1鲜叶_processed'
+main_folder = r'D:\茶叶干燥过程\茶叶多光谱图像\热风第二批140个样+水分\7碾茶_processed'
 
 # 遍历1到20的文件夹
 for folder_number in range(1, 21):

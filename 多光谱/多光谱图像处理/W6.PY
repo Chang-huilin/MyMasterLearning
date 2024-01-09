@@ -5,7 +5,7 @@ import pandas as pd
 from scipy.stats import skew
 
 # 设置主文件夹路径
-main_folder = r'D:\茶叶干燥过程\茶叶多光谱图像\热风第二批140个样+水分\1鲜叶_processed'
+main_folder = r'D:\茶叶干燥过程\茶叶多光谱图像\热风第二批140个样+水分\7碾茶_processed'
 
 # 设置保存结果的文件夹路径
 output_folder = r'D:\茶叶干燥过程\茶叶多光谱图像\热风第二批140个样+水分\纹理'
@@ -55,7 +55,7 @@ for folder_number in range(1, 21):
         WL9[i - 1, :] = t
 
     # 构建保存文件路径
-    output_file = os.path.join(output_folder, f'{folder_number:03d}.xlsx')
+    output_file = os.path.join(output_folder, f'{folder_number+120:03d}.xlsx')
 
     # 将结果保存到 Excel 文件
     df = pd.DataFrame(WL9, columns=['平均值', '标准差', '偏斜度', '平滑度', '三阶矩', '熵'])
