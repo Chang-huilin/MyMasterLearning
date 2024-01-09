@@ -14,7 +14,7 @@ rows, cols, bands = matcha_hyp_data.shape
 save_folder = r'D:\茶叶干燥过程\茶叶多光谱图像\热风第二批140个样+水分\1鲜叶_processed\1\25个波段对应的图像'
 os.makedirs(save_folder, exist_ok=True)
 # 逐个波段保存图像
-for i in range(24):
+for i in range(25):
     # 获取当前波段的数据
     band_data = matcha_hyp_data.read_band(i)  # 注意索引从1开始
 
