@@ -6,7 +6,7 @@ clc                     % 清空命令行
 
 %%  导入数据
 
-file_path = 'C:\Users\79365\OneDrive\桌面\图像-叶绿素\叶绿素\matlab数据\热风第二天140.mat';
+file_path = 'C:\Users\79365\Desktop\图像-叶绿素\叶绿素\matlab数据\热风第二天140.mat';
 
 % 使用load函数导入数据
 load(file_path);
@@ -62,7 +62,7 @@ t_test  =  double(t_test )';
 
 %%  构造网络结构
 layers = [
- imageInputLayer([25, 1, 1])                         % 输入层 输入数据规模[7, 1, 1]
+ imageInputLayer([25, 1, 1])                         % 输入层 输入数据规模[N, 1, 1]
  
  convolution2dLayer([3, 1], 16, 'Padding', 'same')  % 卷积核大小 3*1 生成16张特征图
  batchNormalizationLayer                            % 批归一化层
