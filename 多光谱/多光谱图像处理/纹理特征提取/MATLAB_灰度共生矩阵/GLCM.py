@@ -75,7 +75,7 @@ for folder_name in os.listdir(data_folder):
 
         # 创建 Excel 文件名
         output_folder = r'D:\茶叶干燥过程\茶叶多光谱图像\热风第二批140个样+水分\纹理3'
-        output_file = os.path.join(output_folder, f'{int(folder_name):03d}.xlsx')
+        output_file = os.path.join(output_folder, f'{int(folder_name)+120:03d}.xlsx')
 
         # 保存 DataFrame 到 Excel 文件
         df.to_excel(output_file, index=False)

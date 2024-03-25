@@ -6,7 +6,7 @@ clc                     % 清空命令行
 
 %%  导入数据
 
-file_path = 'C:\Users\79365\OneDrive\桌面\图像-叶绿素\叶绿素\matlab数据\热风第二天140.mat';
+file_path = 'C:\Users\79365\Desktop\图像-叶绿素\叶绿素\matlab数据\热风第二天140.mat';
 
 % 使用load函数导入数据
 load(file_path);
@@ -40,9 +40,9 @@ P_test=Xt';
 T_test=Yt';
 N=size(P_test,2);
 
-
 % 清除变量Y1到Y5和X1到X5
 clear Y1 Y2 Y3 Y4 Y5 X1 X2 X3 X4 X5 z1 z2 num_total;
+
 %%  数据归一化
 [p_train, ps_input] = mapminmax(P_train, 0, 1);
 p_test = mapminmax('apply', P_test, ps_input);

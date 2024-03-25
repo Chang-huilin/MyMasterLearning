@@ -6,7 +6,7 @@ clc                     % 清空命令行
 
 %%  导入数据
 
-file_path = 'C:\Users\79365\OneDrive\桌面\图像-叶绿素\叶绿素\matlab数据\热风第二天140.mat';
+file_path = 'C:\Users\79365\Desktop\图像-叶绿素\叶绿素\matlab数据\热风第二天140.mat';
 
 % 使用load函数导入数据
 load(file_path);
@@ -52,8 +52,8 @@ P_test = mapminmax('apply', P_test, ps_input);
 t_test = mapminmax('apply', T_test, ps_output);
 
 %%  数据平铺
-P_train =  double(reshape(P_train, 25, 1, 1, M));
-P_test  =  double(reshape(P_test , 25, 1, 1, N));
+P_train =  double(reshape(P_train, 35, 1, 1, M));
+P_test  =  double(reshape(P_test , 35, 1, 1, N));
 
 t_train = t_train';
 t_test  = t_test' ;
@@ -69,7 +69,7 @@ end
 
 %%  创建模型
 layers = [
-    sequenceInputLayer(25)               % 建立输入层
+    sequenceInputLayer(35)               % 建立输入层
     
     lstmLayer(4, 'OutputMode', 'last')  % LSTM层
     reluLayer                           % Relu激活层
@@ -83,8 +83,8 @@ options = trainingOptions('adam', ...      % Adam 梯度下降算法
     'InitialLearnRate', 0.01, ...          % 初始学习率为 0.01
     'LearnRateSchedule', 'piecewise', ...  % 学习率下降
     'LearnRateDropFactor', 0.1, ...        % 学习率下降因子
-    'LearnRateDropPeriod', 1200, ...       % 经过 1200 次训练后 学习率为 0.01 * 0.1
-    'Shuffle', 'every-epoch', ...          % 每次训练打乱数据集
+    'LearnRateDropPeriod', 1200, ...       % 经过 1200乱 次训练后 学习率为 0.01 * 0.1
+    'Shuffle', 'every-epoch', ...          % 每次训练打数据集
     'Plots', 'training-progress', ...      % 画出曲线
     'Verbose', false);
 
