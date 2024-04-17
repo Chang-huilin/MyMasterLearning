@@ -6,7 +6,7 @@ clc                     % 清空命令行
 
 %%  导入数据
 
-file_path = 'C:\Users\79365\Desktop\图像-叶绿素\叶绿素\matlab数据\热风第二天140.mat';
+file_path = 'C:\Users\79365\Desktop\图像-叶绿素\叶绿素\matlab数据\35.mat';
 
 % 使用load函数导入数据
 load(file_path);
@@ -55,14 +55,14 @@ t_test = mapminmax('apply', T_test, ps_output);
 %   将数据平铺成1维数据只是一种处理方式
 %   也可以平铺成2维数据，以及3维数据，需要修改对应模型结构
 %   但是应该始终和输入层数据结构保持一致
-p_train = double(reshape(p_train, [25, 1, 1, M]));
-p_test = double(reshape(p_test, [25, 1, 1, N]));
+p_train = double(reshape(p_train, [35, 1, 1, M]));
+p_test = double(reshape(p_test, [35, 1, 1, N]));
 t_train =  double(t_train)';
 t_test  =  double(t_test )';
 
 %%  构造网络结构
 layers = [
- imageInputLayer([25, 1, 1])                         % 输入层 输入数据规模[N, 1, 1]
+ imageInputLayer([35, 1, 1])                         % 输入层 输入数据规模[N, 1, 1]
  
  convolution2dLayer([3, 1], 16, 'Padding', 'same')  % 卷积核大小 3*1 生成16张特征图
  batchNormalizationLayer                            % 批归一化层
