@@ -8,10 +8,10 @@ clc                     % 清空命令行
 res = xlsread('数据集.xlsx');
 
 %%  划分训练集和测试集
-temp = randperm(103);
+temp = randperm(120);
 
-P_train = res(temp(1: 80), 1: 7)';
-T_train = res(temp(1: 80), 8)';
+P_train = res(temp(1: 72), 1: 7)';
+T_train = res(temp(1: 72), 8)';
 M = size(P_train, 2);
 
 P_test = res(temp(81: end), 1: 7)';

@@ -4,14 +4,14 @@
 numIntervals = floor(size(Y, 1) / 20);
 groupedData = mat2cell(Y(1:numIntervals*20, 1), 20*ones(1, numIntervals), 1);%如果是绘制第二列数据，将Y(1:numIntervals*20, 1)改为Y(1:numIntervals*20, 2)，以此类推
 % 手动定义不同颜色
-colors = [
-    0 0 1;  % 蓝色
-    1 0 0;  % 红色
-    0 1 0;  % 绿色
-    0.5 0.5 0;  % 棕色
-    0 0.5 0.5;  % 青色
-    0.5 0 0.5;  % 紫色
-    1 1 0;  % 黄色
+customColors = [
+    0      0.4470 0.7410;          % 蓝色
+    0.8500 0.3250 0.0980;      % 红色
+    0.9290 0.6940 0.1250;      % 黄色
+    0.4940 0.1840 0.5560;      % 紫色
+    0.4660 0.6740 0.1880;      % 绿色
+    0.3010 0.7450 0.9330;      % 青色
+    0.3350 0.1780 0.1840;      % 棕色
 ];
 
 % 绘制多个箱线图（每个区间一个箱线图）
@@ -31,7 +31,7 @@ xlabel('茶叶杀青过程');
 ylabel('mG值');
 title('');
 ylim([0.20 0.55]);  % 设置纵坐标范围为0.15到0.30
-set(gca, 'XTick', 1:numIntervals, 'XTickLabel', 1:6);  % 设置横坐标标签
+set(gca, 'XTick', 1:numIntervals, 'XTickLabel', 1:7);  % 设置横坐标标签
 
 box off;%只显示左边和下边的坐标轴
 
@@ -46,15 +46,16 @@ hold off;
 % 将第一列数据按照20为一个区间分组
 numIntervals = floor(size(Y, 1) / 20);
 groupedData = mat2cell(Y(1:numIntervals*20, 2), 20*ones(1, numIntervals), 1);
+colors = lines(7); % 生成包含三种颜色的调色板
 % 手动定义不同颜色
 customColors = [
-    0 0 1;  % 蓝色
-    1 0 0;  % 红色
-    0 1 0;  % 绿色
-    0.5 0.5 0;  % 棕色
-    0 0.5 0.5;  % 青色
-    0.5 0 0.5;  % 紫色
-    1 1 0;  % 黄色
+    0      0.4470 0.7410;      % 蓝色
+    0.8500 0.3250 0.0980;      % 红色
+    0.9290 0.6940 0.1250;      % 黄色
+    0.4940 0.1840 0.5560;      % 紫色
+    0.4660 0.6740 0.1880;      % 绿色
+    0.3010 0.7450 0.9330;      % 青色
+    0.3350 0.1780 0.1840;      % 棕色
 ];
 
 % 绘制多个箱线图（每个区间一个箱线图）
@@ -81,7 +82,7 @@ xlabel('茶叶杀青过程');
 ylabel('mG值');
 title('');
 ylim([0.20 0.55]);  % 设置纵坐标范围为0.15到0.30
-set(gca, 'XTick', 1:numIntervals, 'XTickLabel', 1:6);  % 设置横坐标标签
+set(gca, 'XTick', 1:numIntervals, 'XTickLabel', 1:7);  % 设置横坐标标签
 box off;
 set(gca, 'TickDir', 'out');
 hold off;
