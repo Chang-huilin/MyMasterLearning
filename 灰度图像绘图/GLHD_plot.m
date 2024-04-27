@@ -15,9 +15,9 @@ title('原始图像');
 % 绘制灰度直方图
 figure;
 stem(binLocations, counts, 'Marker', 'none');
-title('灰度直方图');
-xlabel('灰度级别');
-ylabel('像素数量');
+title('GLHD');
+xlabel('GRAY LEVELS');
+ylabel('PIXEL COUNTS');
 
 % 保存灰度直方图图片
 saveas(gcf, '灰度直方图.png');

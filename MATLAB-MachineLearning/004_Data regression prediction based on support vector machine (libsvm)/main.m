@@ -14,14 +14,14 @@ load(file_path);
 
 
 %%  划分训练集和测试集
-temp = randperm(280);
+temp = randperm(120);
 
-P_train = X(temp(1: 160), 1: 25)';
-T_train = Y(temp(1: 160), 3)';
+P_train = X(temp(1: 72), 1: 3)';
+T_train = Y(temp(1: 72), 1)';
 M = size(P_train, 2);
 
-P_test = X(temp(161: end), 1: 25)';
-T_test = Y(temp(161: end), 3)';
+P_test = X(temp(73: end), 1: 3)';
+T_test = Y(temp(73: end), 1)';
 N = size(P_test, 2);
 
 %%  数据归一化
