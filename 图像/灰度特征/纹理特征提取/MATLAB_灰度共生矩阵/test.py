@@ -1,9 +1,9 @@
 import os
 import numpy as np
-from skimage.feature import graycomatrix, graycoprops
+from skimage.feature import greycomatrix, greycoprops
 from PIL import Image
 import pandas as pd
-import spectral.io.envi as envi
+
 # 设置图像文件夹路径
 data_folder = r'D:\红茶数据\test\裁剪后'
 

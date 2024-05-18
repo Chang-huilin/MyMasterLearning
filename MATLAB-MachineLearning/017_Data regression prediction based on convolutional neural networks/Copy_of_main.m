@@ -6,14 +6,8 @@ clc                     % 清空命令行
 
 %%  导入数据
 
-file_path = 'C:\Users\79365\Desktop\图像-叶绿素\叶绿素\matlab数据\35.mat';
-
-% 使用load函数导入数据
-load(file_path);
-
 Y=Y(:,3);
-
-%%  划分训练集和测试集
+%%  划分训练集和测试集%%  划分训练集和测试集
 num_total=140;
 [z1, z2]=sort(Y);           %#ok<*ASGLU> %对Y进行排序，z1为排序结果，z2反映做了什么改变
 X1=X(1:5:num_total,:);   %训练与预测以3:2分(中间为5，若1:1分则中间为2）每5个分为一组，每组中 1、3、5 为训练；2、4为预测
@@ -40,9 +34,10 @@ P_test=Xt';
 T_test=Yt';
 N=size(P_test,2);
 
+Xc = X(1:3, :, :);
 
-% 清除变量Y1到Y5和X1到X5
-clear Y1 Y2 Y3 Y4 Y5 X1 X2 X3 X4 X5 z1 z2 num_total;
+% 划分出大小为 2x131x9 的子数组 X2
+Xt = X(4:5, :, :);
 
 %%  数据归一化
 [p_train, ps_input] = mapminmax(P_train, 0, 1);
@@ -55,14 +50,14 @@ t_test = mapminmax('apply', T_test, ps_output);
 %   将数据平铺成1维数据只是一种处理方式
 %   也可以平铺成2维数据，以及3维数据，需要修改对应模型结构
 %   但是应该始终和输入层数据结构保持一致
-p_train = double(reshape(p_train, [35, 1, 1, M]));
-p_test = double(reshape(p_test, [35, 1, 1, N]));
+p_train =  double(reshape(p_train, 7, 1, 1, M));
+p_test  =  double(reshape(p_test , 7, 1, 1, N));
 t_train =  double(t_train)';
 t_test  =  double(t_test )';
 
 %%  构造网络结构
 layers = [
- imageInputLayer([35, 1, 1])                         % 输入层 输入数据规模[N, 1, 1]
+ imageInputLayer([7, 1, 1])                         % 输入层 输入数据规模[7, 1, 1]
  
  convolution2dLayer([3, 1], 16, 'Padding', 'same')  % 卷积核大小 3*1 生成16张特征图
  batchNormalizationLayer                            % 批归一化层
@@ -104,8 +99,7 @@ T_sim2 = mapminmax('reverse', t_sim2, ps_output);
 %%  均方根误差
 error1 = sqrt(sum((T_sim1' - T_train).^2) ./ M);
 error2 = sqrt(sum((T_sim2' - T_test ).^2) ./ N);
-disp(['训练集数据的RMES为：', num2str(error1)])
-disp(['测试集数据的RMSE为：', num2str(error2)])
+
 %%  绘制网络分析图
 analyzeNetwork(layers)
 
@@ -137,13 +131,6 @@ R2 = 1 - norm(T_test  - T_sim2')^2 / norm(T_test  - mean(T_test ))^2;
 
 disp(['训练集数据的R2为：', num2str(R1)])
 disp(['测试集数据的R2为：', num2str(R2)])
-% 计算平方根
-Rc = sqrt(R1);
-Rp = sqrt(R2);
-
-% 输出结果
-disp(['Rc为：', num2str(Rc)]);
-disp(['Rp为：', num2str(Rp)]);
 
 % MAE
 mae1 = sum(abs(T_sim1' - T_train)) ./ M ;
@@ -158,18 +145,6 @@ mbe2 = sum(T_sim2' - T_test ) ./ N ;
 
 disp(['训练集数据的MBE为：', num2str(mbe1)])
 disp(['测试集数据的MBE为：', num2str(mbe2)])
-
-% 计算基准数据（实际观测数据）的标准差
-sd_reference_train = std(T_train);
-sd_reference_test = std(T_test);
-
-% 计算RPD
-rpd_train = sd_reference_train / error1;  % 使用训练集的均方根误差
-rpd_test = sd_reference_test / error2;    % 使用测试集的均方根误差
-
-% 显示结果
-disp(['训练集数据的RPD为：', num2str(rpd_train)])
-disp(['测试集数据的RPD为：', num2str(rpd_test)])
 
 %%  绘制散点图
 sz = 25;

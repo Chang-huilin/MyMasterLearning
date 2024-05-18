@@ -6,7 +6,7 @@ clc                     % 清空命令行
 
 %%  导入数据
 
-file_path = 'C:\Users\79365\Desktop\图像-叶绿素\叶绿素\matlab数据\热风第二天140.mat';
+file_path = 'C:\Users\79365\Desktop\图像-叶绿素\叶绿素\matlab数据\35.mat';
 
 % 使用load函数导入数据
 load(file_path);

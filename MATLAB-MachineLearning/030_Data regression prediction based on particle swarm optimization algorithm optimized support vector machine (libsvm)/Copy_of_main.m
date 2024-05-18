@@ -6,7 +6,7 @@ clc                     % 清空命令行
 
 %%  导入数据
 
-file_path = 'C:\Users\79365\Desktop\图像-叶绿素\叶绿素\matlab数据\热风第二天140.mat';
+file_path = 'C:\Users\79365\Desktop\图像-叶绿素\叶绿素\matlab数据\35.mat';
 
 % 使用load函数导入数据
 load(file_path);
@@ -64,9 +64,9 @@ pso_option.wV = 1;                           % wV:初始为1(wV best belongs to [0.
 pso_option.wP = 1;                           % wP:初始为1,种群更新公式中速度前面的弹性系数
 pso_option.v  = 5;                           % v:初始为3, SVM Cross Validation参数
 
-pso_option.popcmax = 100;                    % popcmax:初始为100, SVM 参数c的变化的最大值.
+pso_option.popcmax = 10;                    % popcmax:初始为100, SVM 参数c的变化的最大值.
 pso_option.popcmin = 0.1;                    % popcmin:初始为0.1, SVM 参数c的变化的最小值.
-pso_option.popgmax = 100;                    % popgmax:初始为100, SVM 参数g的变化的最大值.
+pso_option.popgmax = 1;                    % popgmax:初始为100, SVM 参数g的变化的最大值.
 pso_option.popgmin = 0.1;                    % popgmin:初始为0.1, SVM 参数g的变化的最小值.
 
 %%  提取最佳参数

@@ -38,6 +38,7 @@ for i = 1:size(offsets, 1)
     colormap(gca, jet);  % 使用jet colormap
     colorbar;
     title(['GLCM (', num2str(offsets(i, :)), ')']);
+    title(['GLCM (', num2str(offsets(i, :)), ')'], 'FontName', 'Times New Roman', 'FontSize', 48, 'FontWeight', 'bold'); % 设置标题字体
 end
 
 % 提示操作完成

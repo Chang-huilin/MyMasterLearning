@@ -6,7 +6,7 @@ clc                     % 清空命令行
 
 %%  导入数据
 
-file_path = 'C:\Users\79365\OneDrive\桌面\图像-叶绿素\叶绿素\matlab数据\热风第二天140.mat';
+file_path = 'C:\Users\79365\Desktop\图像-叶绿素\叶绿素\matlab数据\35.mat';
 
 % 使用load函数导入数据
 load(file_path);
@@ -56,8 +56,8 @@ p_train = p_train'; p_test = p_test';
 t_train = t_train'; t_test = t_test';
 
 %%  创建模型
-c = 4.0;    % 惩罚因子
-g = 0.8;    % 径向基函数参数
+c = 2.5;    % 惩罚因子
+g = 0.5;    % 径向基函数参数
 cmd = [' -t 2',' -c ',num2str(c),' -g ',num2str(g),' -s 3 -p 0.01'];
 model = svmtrain(t_train, p_train, cmd);
 
@@ -136,26 +136,27 @@ mbe2 = sum(T_sim2' - T_test ) ./ N ;
 disp(['训练集数据的MBE为：', num2str(mbe1)])
 disp(['测试集数据的MBE为：', num2str(mbe2)])
 
-%%  绘制散点图
-sz = 25;
-c = 'b';
-
-figure
-scatter(T_train, T_sim1, sz, c)
-hold on
-plot(xlim, ylim, '--k')
-xlabel('训练集真实值');
-ylabel('训练集预测值');
-xlim([min(T_train) max(T_train)])
-ylim([min(T_sim1) max(T_sim1)])
-title('训练集预测值 vs. 训练集真实值')
-
-figure
-scatter(T_test, T_sim2, sz, c)
-hold on
-plot(xlim, ylim, '--k')
-xlabel('测试集真实值');
-ylabel('测试集预测值');
-xlim([min(T_test) max(T_test)])
-ylim([min(T_sim2) max(T_sim2)])
-title('测试集预测值 vs. 测试集真实值')
+% %%  绘制散点图
+% sz = 25;
+% c = 'r';
+% 
+% figure
+% scatter(T_train, T_sim1, sz, c)
+% hold on
+% plot(xlim, ylim, '--k')
+% xlabel('训练集真实值');
+% ylabel('训练集预测值');
+% xlim([min(T_train) max(T_train)])
+% ylim([min(T_sim1) max(T_sim1)])
+% title('训练集预测值 vs. 训练集真实值')
+% %% 
+% 
+% figure
+% scatter(T_test, T_sim2, sz, 'filled', c, 'Marker', '^')  % 使用红色实心三角作为点的标记
+% hold on
+% plot(xlim, ylim, '--k')
+% xlabel('测试集真实值');
+% ylabel('测试集预测值');
+% xlim([min(T_test) max(T_test)])
+% ylim([min(T_sim2) max(T_sim2)])
+% title('测试集预测值 vs. 测试集真实值')

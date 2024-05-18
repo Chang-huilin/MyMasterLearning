@@ -6,7 +6,7 @@ clc                     % 清空命令行
 
 %%  导入数据
 
-file_path = 'C:\Users\79365\OneDrive\桌面\图像-叶绿素\叶绿素\matlab数据\热风第二天140.mat';
+file_path = 'C:\Users\79365\Desktop\图像-叶绿素\叶绿素\matlab数据\35.mat';
 
 % 使用load函数导入数据
 load(file_path);
@@ -14,7 +14,7 @@ load(file_path);
 Y=Y(:,3);
 
 %%  划分训练集和测试集
-num_total=120;
+num_total=140;
 [z1, z2]=sort(Y);           %#ok<*ASGLU> %对Y进行排序，z1为排序结果，z2反映做了什么改变
 X1=X(1:5:num_total,:);   %训练与预测以3:2分(中间为5，若1:1分则中间为2）每5个分为一组，每组中 1、3、5 为训练；2、4为预测
 X2=X(2:5:num_total,:);
@@ -43,6 +43,7 @@ N=size(P_test,2);
 
 % 清除变量Y1到Y5和X1到X5
 clear Y1 Y2 Y3 Y4 Y5 X1 X2 X3 X4 X5 z1 z2 num_total;
+
 %%  数据归一化
 [p_train, ps_input] = mapminmax(P_train, 0, 1);
 p_test = mapminmax('apply', P_test, ps_input);
@@ -50,22 +51,63 @@ p_test = mapminmax('apply', P_test, ps_input);
 [t_train, ps_output] = mapminmax(T_train, 0, 1);
 t_test = mapminmax('apply', T_test, ps_output);
 
-%%  创建模型
-num_hiddens = 50;        % 隐藏层节点个数
-activate_model = 'sig';  % 激活函数
-[IW, B, LW, TF, TYPE] = elmtrain(p_train, t_train, num_hiddens, activate_model, 0);
+%%  数据平铺
+%   将数据平铺成1维数据只是一种处理方式
+%   也可以平铺成2维数据，以及3维数据，需要修改对应模型结构
+%   但是应该始终和输入层数据结构保持一致
+p_train = double(reshape(p_train, [35, 1, 1, M]));
+p_test = double(reshape(p_test, [35, 1, 1, N]));
+t_train =  double(t_train)';
+t_test  =  double(t_test )';
 
-%%  仿真测试
-t_sim1 = elmpredict(p_train, IW, B, LW, TF, TYPE);
-t_sim2 = elmpredict(p_test , IW, B, LW, TF, TYPE);
+%%  构造网络结构
+layers = [
+ imageInputLayer([35, 1, 1])                         % 输入层 输入数据规模[N, 1, 1]
+ 
+ convolution2dLayer([3, 1], 16, 'Padding', 'same')  % 卷积核大小 3*1 生成16张特征图
+ batchNormalizationLayer                            % 批归一化层
+ reluLayer                                          % Relu激活层
+ 
+ maxPooling2dLayer([2, 1], 'Stride', [1, 1])        % 最大池化层 池化窗口 [2, 1] 步长 [1, 1]
+
+ convolution2dLayer([3, 1], 32, 'Padding', 'same')  % 卷积核大小 3*1 生成32张特征图
+ batchNormalizationLayer                            % 批归一化层
+ reluLayer                                          % Relu激活层
+
+ dropoutLayer(0.1)                                  % Dropout层
+ fullyConnectedLayer(1)                             % 全连接层
+ regressionLayer];                                  % 回归层
+
+%%  参数设置
+options = trainingOptions('sgdm', ...      % SGDM 梯度下降算法
+    'MiniBatchSize', 32, ...               % 批大小,每次训练样本个数 32
+    'MaxEpochs', 500, ...                 % 最大训练次数 1200
+    'InitialLearnRate', 1e-2, ...          % 初始学习率为0.01
+    'LearnRateSchedule', 'piecewise', ...  % 学习率下降
+    'LearnRateDropFactor', 0.1, ...        % 学习率下降因子
+    'LearnRateDropPeriod', 800, ...        % 经过 800 次训练后 学习率为 0.01 * 0.1
+    'Shuffle', 'every-epoch', ...          % 每次训练打乱数据集
+    'Plots', 'training-progress', ...      % 画出曲线
+    'Verbose', false);
+
+%%  训练模型
+net = trainNetwork(p_train, t_train, layers, options);
+
+%%  模型预测
+t_sim1 = predict(net, p_train);
+t_sim2 = predict(net, p_test );
 
 %%  数据反归一化
 T_sim1 = mapminmax('reverse', t_sim1, ps_output);
 T_sim2 = mapminmax('reverse', t_sim2, ps_output);
 
 %%  均方根误差
-error1 = sqrt(sum((T_sim1 - T_train).^2) ./ M);
-error2 = sqrt(sum((T_sim2 - T_test ).^2) ./ N);
+error1 = sqrt(sum((T_sim1' - T_train).^2) ./ M);
+error2 = sqrt(sum((T_sim2' - T_test ).^2) ./ N);
+disp(['训练集数据的RMES为：', num2str(error1)])
+disp(['测试集数据的RMSE为：', num2str(error2)])
+%%  绘制网络分析图
+analyzeNetwork(layers)
 
 %%  绘图
 figure
@@ -90,25 +132,11 @@ grid
 
 %%  相关指标计算
 % R2
-R1 = 1 - norm(T_train - T_sim1)^2 / norm(T_train - mean(T_train))^2;
-R2 = 1 - norm(T_test  - T_sim2)^2 / norm(T_test  - mean(T_test ))^2;
+R1 = 1 - norm(T_train - T_sim1')^2 / norm(T_train - mean(T_train))^2;
+R2 = 1 - norm(T_test  - T_sim2')^2 / norm(T_test  - mean(T_test ))^2;
 
 disp(['训练集数据的R2为：', num2str(R1)])
 disp(['测试集数据的R2为：', num2str(R2)])
-
-% MAE
-mae1 = sum(abs(T_sim1 - T_train)) ./ M ;
-mae2 = sum(abs(T_sim2 - T_test )) ./ N ;
-
-disp(['训练集数据的MAE为：', num2str(mae1)])
-disp(['测试集数据的MAE为：', num2str(mae2)])
-
-% MBE
-mbe1 = sum(T_sim1 - T_train) ./ M ;
-mbe2 = sum(T_sim2 - T_test ) ./ N ;
-
-disp(['训练集数据的MBE为：', num2str(mbe1)])
-disp(['测试集数据的MBE为：', num2str(mbe2)])
 % 计算平方根
 Rc = sqrt(R1);
 Rp = sqrt(R2);
@@ -117,7 +145,19 @@ Rp = sqrt(R2);
 disp(['Rc为：', num2str(Rc)]);
 disp(['Rp为：', num2str(Rp)]);
 
-%% 
+% MAE
+mae1 = sum(abs(T_sim1' - T_train)) ./ M ;
+mae2 = sum(abs(T_sim2' - T_test )) ./ N ;
+
+disp(['训练集数据的MAE为：', num2str(mae1)])
+disp(['测试集数据的MAE为：', num2str(mae2)])
+
+% MBE
+mbe1 = sum(T_sim1' - T_train) ./ M ;
+mbe2 = sum(T_sim2' - T_test ) ./ N ;
+
+disp(['训练集数据的MBE为：', num2str(mbe1)])
+disp(['测试集数据的MBE为：', num2str(mbe2)])
 
 % 计算基准数据（实际观测数据）的标准差
 sd_reference_train = std(T_train);
