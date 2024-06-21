@@ -71,4 +71,7 @@
         git pull origin master --allow-unrelated-histories
 
 远程仓库有更新的话需要先pull下来、然后再push
-    git remote add origin <ssh.url>
+
+* git remote add origin <ssh.url>
+  git pull
+  
