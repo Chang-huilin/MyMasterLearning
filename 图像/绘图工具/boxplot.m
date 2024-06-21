@@ -33,7 +33,7 @@ title('');
 ylim([0.20 0.55]);  % 设置纵坐标范围为0.15到0.30
 set(gca, 'XTick', 1:numIntervals, 'XTickLabel', 1:7);  % 设置横坐标标签
 
-box off;%只显示左边和下边的坐标轴
+box on;%只显示左边和下边的坐标轴
 
 set(gca, 'TickDir', 'out');%坐标轴刻度朝外，如果朝内，将out改为in
 hold off;
