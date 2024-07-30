@@ -3,12 +3,15 @@ warning off             % 关闭报警信息
 close all               % 关闭开启的图窗
 clear                   % 清空变量
 clc                     % 清空命令行
-
 %%  导入数据
 
-Y=Y(:,3);
+file_path = "D:\红茶数据2024.0423\红外2\HW2\matlab.mat";
+% 使用load函数导入数据
+load(file_path);
+
+
 %%  划分训练集和测试集%%  划分训练集和测试集
-num_total=140;
+num_total=120;
 [z1, z2]=sort(Y);           %#ok<*ASGLU> %对Y进行排序，z1为排序结果，z2反映做了什么改变
 X1=X(1:5:num_total,:);   %训练与预测以3:2分(中间为5，若1:1分则中间为2）每5个分为一组，每组中 1、3、5 为训练；2、4为预测
 X2=X(2:5:num_total,:);
@@ -50,22 +53,22 @@ t_test = mapminmax('apply', T_test, ps_output);
 %   将数据平铺成1维数据只是一种处理方式
 %   也可以平铺成2维数据，以及3维数据，需要修改对应模型结构
 %   但是应该始终和输入层数据结构保持一致
-p_train =  double(reshape(p_train, 7, 1, 1, M));
-p_test  =  double(reshape(p_test , 7, 1, 1, N));
+p_train =  double(reshape(p_train, 25, 1, 1, M));
+p_test  =  double(reshape(p_test , 25, 1, 1, N));
 t_train =  double(t_train)';
 t_test  =  double(t_test )';
 
 %%  构造网络结构
 layers = [
- imageInputLayer([7, 1, 1])                         % 输入层 输入数据规模[7, 1, 1]
+ imageInputLayer([25, 1, 1])                         % 输入层 输入数据规模[7, 1, 1]
  
- convolution2dLayer([3, 1], 16, 'Padding', 'same')  % 卷积核大小 3*1 生成16张特征图
+ convolution2dLayer([3, 1], 32, 'Padding', 'same')  % 卷积核大小 3*1 生成16张特征图
  batchNormalizationLayer                            % 批归一化层
  reluLayer                                          % Relu激活层
  
  maxPooling2dLayer([2, 1], 'Stride', [1, 1])        % 最大池化层 池化窗口 [2, 1] 步长 [1, 1]
 
- convolution2dLayer([3, 1], 32, 'Padding', 'same')  % 卷积核大小 3*1 生成32张特征图
+ convolution2dLayer([3, 1], 64, 'Padding', 'same')  % 卷积核大小 3*1 生成32张特征图
  batchNormalizationLayer                            % 批归一化层
  reluLayer                                          % Relu激活层
 
@@ -76,11 +79,11 @@ layers = [
 %%  参数设置
 options = trainingOptions('sgdm', ...      % SGDM 梯度下降算法
     'MiniBatchSize', 32, ...               % 批大小,每次训练样本个数 32
-    'MaxEpochs', 1200, ...                 % 最大训练次数 1200
+    'MaxEpochs', 500, ...                 % 最大训练次数 1200
     'InitialLearnRate', 1e-2, ...          % 初始学习率为0.01
     'LearnRateSchedule', 'piecewise', ...  % 学习率下降
     'LearnRateDropFactor', 0.1, ...        % 学习率下降因子
-    'LearnRateDropPeriod', 800, ...        % 经过 800 次训练后 学习率为 0.01 * 0.1
+    'LearnRateDropPeriod', 350, ...        % 经过 800 次训练后 学习率为 0.01 * 0.1
     'Shuffle', 'every-epoch', ...          % 每次训练打乱数据集
     'Plots', 'training-progress', ...      % 画出曲线
     'Verbose', false);
@@ -145,6 +148,13 @@ mbe2 = sum(T_sim2' - T_test ) ./ N ;
 
 disp(['训练集数据的MBE为：', num2str(mbe1)])
 disp(['测试集数据的MBE为：', num2str(mbe2)])
+% 计算平方根
+Rc = sqrt(R1);
+Rp = sqrt(R2);
+
+% 输出结果
+disp(['Rc为：', num2str(Rc)]);
+disp(['Rp为：', num2str(Rp)]);
 
 %%  绘制散点图
 sz = 25;

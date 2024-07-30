@@ -5,19 +5,42 @@ clear                   % 清空变量
 clc                     % 清空命令行
 
 %%  导入数据
-res = xlsread('数据集.xlsx');
+
+file_path = "D:\红茶数据2024.0423\红外2\HW2\matlab.mat";
+% 使用load函数导入数据
+load(file_path);
+
 
 %%  划分训练集和测试集
-temp = randperm(103);
+num_total=120;
+[z1, z2]=sort(Y);           %#ok<*ASGLU> %对Y进行排序，z1为排序结果，z2反映做了什么改变
+X1=X(1:5:num_total,:);   %训练与预测以3:2分(中间为5，若1:1分则中间为2）每5个分为一组，每组中 1、3、5 为训练；2、4为预测
+X2=X(2:5:num_total,:);
+X3=X(3:5:num_total,:);
+X4=X(4:5:num_total,:);
+X5=X(5:5:num_total,:);
 
-P_train = res(temp(1: 80), 1: 7)';
-T_train = res(temp(1: 80), 8)';
-M = size(P_train, 2);
+Y1=Y(1:5:num_total,:);   
+Y2=Y(2:5:num_total,:);
+Y3=Y(3:5:num_total,:);
+Y4=Y(4:5:num_total,:);
+Y5=Y(5:5:num_total,:);
 
-P_test = res(temp(81: end), 1: 7)';
-T_test = res(temp(81: end), 8)';
-N = size(P_test, 2);
+Xc=[X1;X3;X5];
+Xt=[X2;X4];
+Yc=[Y1;Y3;Y5];
+Yt=[Y2;Y4];
 
+P_train=Xc';
+T_train=Yc';
+M=size(P_train,2);
+P_test=Xt';
+T_test=Yt';
+N=size(P_test,2);
+
+
+% 清除变量Y1到Y5和X1到X5
+clear Y1 Y2 Y3 Y4 Y5 X1 X2 X3 X4 X5 z1 z2 num_total;
 %%  数据归一化
 [P_train, ps_input] = mapminmax(P_train, 0, 1);
 P_test = mapminmax('apply', P_test, ps_input);
@@ -26,8 +49,8 @@ P_test = mapminmax('apply', P_test, ps_input);
 t_test = mapminmax('apply', T_test, ps_output);
 
 %%  数据平铺
-P_train =  double(reshape(P_train, 7, 1, 1, M));
-P_test  =  double(reshape(P_test , 7, 1, 1, N));
+P_train =  double(reshape(P_train, 18, 1, 1, M));
+P_test  =  double(reshape(P_test , 18, 1, 1, N));
 
 t_train = t_train';
 t_test  = t_test' ;
@@ -43,21 +66,21 @@ end
 
 %%  创建模型
 layers = [
-    sequenceInputLayer(7)               % 建立输入层
+    sequenceInputLayer(18)               % 建立输入层
     
-    lstmLayer(4, 'OutputMode', 'last')  % LSTM层
+    lstmLayer(8, 'OutputMode', 'last')  % LSTM层
     reluLayer                           % Relu激活层
-    
+    dropoutLayer(0.1)
     fullyConnectedLayer(1)              % 全连接层
     regressionLayer];                   % 回归层
  
 %%  参数设置
 options = trainingOptions('adam', ...      % Adam 梯度下降算法
-    'MaxEpochs', 1500, ...                 % 最大迭代次数
+    'MaxEpochs', 1200, ...                 % 最大迭代次数
     'InitialLearnRate', 0.01, ...          % 初始学习率为 0.01
     'LearnRateSchedule', 'piecewise', ...  % 学习率下降
     'LearnRateDropFactor', 0.1, ...        % 学习率下降因子
-    'LearnRateDropPeriod', 1200, ...       % 经过 1200 次训练后 学习率为 0.01 * 0.1
+    'LearnRateDropPeriod', 800, ...       % 经过 1200 次训练后 学习率为 0.01 * 0.1
     'Shuffle', 'every-epoch', ...          % 每次训练打乱数据集
     'Plots', 'training-progress', ...      % 画出曲线
     'Verbose', false);

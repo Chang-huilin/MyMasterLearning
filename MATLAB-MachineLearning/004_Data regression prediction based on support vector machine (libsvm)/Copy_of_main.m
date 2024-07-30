@@ -14,7 +14,7 @@ load(file_path);
 Y=Y(:,3);
 
 %%  划分训练集和测试集
-num_total=140;
+num_total=120;
 [z1, z2]=sort(Y);           %#ok<*ASGLU> %对Y进行排序，z1为排序结果，z2反映做了什么改变
 X1=X(1:5:num_total,:);   %训练与预测以3:2分(中间为5，若1:1分则中间为2）每5个分为一组，每组中 1、3、5 为训练；2、4为预测
 X2=X(2:5:num_total,:);
@@ -56,7 +56,7 @@ p_train = p_train'; p_test = p_test';
 t_train = t_train'; t_test = t_test';
 
 %%  创建模型
-c = 2.5;    % 惩罚因子
+c = 3;    % 惩罚因子
 g = 0.5;    % 径向基函数参数
 cmd = [' -t 2',' -c ',num2str(c),' -g ',num2str(g),' -s 3 -p 0.01'];
 model = svmtrain(t_train, p_train, cmd);

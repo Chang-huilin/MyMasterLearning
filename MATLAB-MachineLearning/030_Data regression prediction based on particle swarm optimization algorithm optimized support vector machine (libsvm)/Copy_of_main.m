@@ -14,7 +14,7 @@ load(file_path);
 Y=Y(:,3);
 
 %%  划分训练集和测试集
-num_total=140;
+num_total=120;
 [z1, z2]=sort(Y);           %#ok<*ASGLU> %对Y进行排序，z1为排序结果，z2反映做了什么改变
 X1=X(1:5:num_total,:);   %训练与预测以3:2分(中间为5，若1:1分则中间为2）每5个分为一组，每组中 1、3、5 为训练；2、4为预测
 X2=X(2:5:num_total,:);
@@ -152,26 +152,26 @@ rpd_test = sd_reference_test / error2;    % 使用测试集的均方根误差
 disp(['训练集数据的RPD为：', num2str(rpd_train)])
 disp(['测试集数据的RPD为：', num2str(rpd_test)])
 
-%%  绘制散点图
-sz = 25;
-c = 'b';
-
-figure
-scatter(T_train, T_sim1, sz, c)
-hold on
-plot(xlim, ylim, '--k')
-xlabel('训练集真实值');
-ylabel('训练集预测值');
-xlim([min(T_train) max(T_train)])
-ylim([min(T_sim1) max(T_sim1)])
-title('训练集预测值 vs. 训练集真实值')
-
-figure
-scatter(T_test, T_sim2, sz, c)
-hold on
-plot(xlim, ylim, '--k')
-xlabel('测试集真实值');
-ylabel('测试集预测值');
-xlim([min(T_test) max(T_test)])
-ylim([min(T_sim2) max(T_sim2)])
-title('测试集预测值 vs. 测试集真实值')
+% %%  绘制散点图
+% sz = 25;
+% c = 'b';
+% 
+% figure
+% scatter(T_train, T_sim1, sz, c)
+% hold on
+% plot(xlim, ylim, '--k')
+% xlabel('训练集真实值');
+% ylabel('训练集预测值');
+% xlim([min(T_train) max(T_train)])
+% ylim([min(T_sim1) max(T_sim1)])
+% title('训练集预测值 vs. 训练集真实值')
+% 
+% figure
+% scatter(T_test, T_sim2, sz, c)
+% hold on
+% plot(xlim, ylim, '--k')
+% xlabel('测试集真实值');
+% ylabel('测试集预测值');
+% xlim([min(T_test) max(T_test)])
+% ylim([min(T_sim2) max(T_sim2)])
+% title('测试集预测值 vs. 测试集真实值')

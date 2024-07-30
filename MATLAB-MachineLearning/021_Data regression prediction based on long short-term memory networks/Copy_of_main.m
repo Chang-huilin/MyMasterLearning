@@ -14,7 +14,7 @@ load(file_path);
 Y=Y(:,3);
 
 %%  划分训练集和测试集
-num_total=140;
+num_total=120;
 [z1, z2]=sort(Y);           %#ok<*ASGLU> %对Y进行排序，z1为排序结果，z2反映做了什么改变
 X1=X(1:5:num_total,:);   %训练与预测以3:2分(中间为5，若1:1分则中间为2）每5个分为一组，每组中 1、3、5 为训练；2、4为预测
 X2=X(2:5:num_total,:);
@@ -52,8 +52,8 @@ P_test = mapminmax('apply', P_test, ps_input);
 t_test = mapminmax('apply', T_test, ps_output);
 
 %%  数据平铺
-P_train =  double(reshape(P_train, 35, 1, 1, M));
-P_test  =  double(reshape(P_test , 35, 1, 1, N));
+P_train =  double(reshape(P_train, 18, 1, 1, M));
+P_test  =  double(reshape(P_test , 18, 1, 1, N));
 
 t_train = t_train';
 t_test  = t_test' ;
@@ -69,7 +69,7 @@ end
 
 %%  创建模型
 layers = [
-    sequenceInputLayer(35)               % 建立输入层
+    sequenceInputLayer(18)               % 建立输入层
     
     lstmLayer(4, 'OutputMode', 'last')  % LSTM层
     reluLayer                           % Relu激活层

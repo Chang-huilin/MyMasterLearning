@@ -2,7 +2,7 @@ import os
 from PIL import Image
 
 # 设置主文件夹路径
-main_folder = r'D:\红茶数据\all3'
+main_folder = r'D:\红茶数据2024.0423\红外2\HW2'
 
 # 遍历主文件夹中的 BMP 图像
 for filename in os.listdir(main_folder):

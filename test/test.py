@@ -52,7 +52,7 @@ data = pd.read_excel(file_path, header=None)
 X = data.iloc[:, 1:].values
 y = data.iloc[:, 0].values
 
-# 将类别索引从1到7转换为从0到6
+# 类别索引从1到7, 转换为从0到6(python从0开始)
 y = y - 1
 
 # 将标签转换为独热编码

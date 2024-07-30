@@ -1,5 +1,5 @@
 % 设置裁剪后图像存储文件夹路径
-croppedFolder = 'D:\红茶数据\test\裁剪后';
+croppedFolder = 'D:\红茶数据2024.0423\红外2\HW2\裁剪后';
 
 % 获取裁剪后图像文件夹中所有图像文件的列表
 fileList = dir(fullfile(croppedFolder, '*.bmp'));
