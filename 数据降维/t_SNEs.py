@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import zscore
-from tsne import TSNE
+from sklearn.manifold import TSNE
 
 # 生成示例数据
 X = np.random.randn(140, 25)  # 生成随机数据
